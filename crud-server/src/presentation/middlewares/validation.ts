@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { CreateProductDto, UpdateProductDto } from '../dtos/ProductDto';
+import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 
 /**
  * Validation Middleware for Product Requests

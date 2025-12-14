@@ -17,7 +17,7 @@ export interface UpdateProductDto {
 }
 
 export interface ProductResponseDto {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;

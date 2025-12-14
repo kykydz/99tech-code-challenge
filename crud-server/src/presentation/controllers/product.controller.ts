@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProductService } from '../../application/services/ProductService';
+import { ProductService } from '../../service/product.service';
 import {
   CreateProductDto,
   UpdateProductDto,
   ProductResponseDto,
-} from '../dtos/ProductDto';
-import { Product } from '../../domain/entities/Product';
+} from '../dtos/product.dto';
+import { Product } from '../../domain/entities/product.entity';
 
 /**
  * Product Controller - Presentation Layer
@@ -40,14 +40,9 @@ export class ProductController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { name, description, price, stock } = req.body as CreateProductDto;
+      const productToCreate = req.body as CreateProductDto;
 
-      const product = await this.productService.createProduct(
-        name,
-        description,
-        price,
-        stock
-      );
+      const product = await this.productService.createProduct(productToCreate);
 
       res.status(201).json({
         success: true,
@@ -90,7 +85,7 @@ export class ProductController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = req.params.id;
       const product = await this.productService.getProductById(id);
 
       res.status(200).json({
@@ -112,7 +107,7 @@ export class ProductController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = req.params.id;
       const { name, description, price, stock } = req.body as UpdateProductDto;
 
       const product = await this.productService.updateProduct(
@@ -142,7 +137,7 @@ export class ProductController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const id = parseInt(req.params.id, 10);
+      const id = req.params.id;
       await this.productService.deleteProduct(id);
 
       res.status(200).json({

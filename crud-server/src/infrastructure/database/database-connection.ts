@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Product } from '../../domain/entities/Product';
+import { Product } from '../../domain/entities/product.entity';
 
 /**
  * Database Configuration and Initialization

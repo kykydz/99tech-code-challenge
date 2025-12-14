@@ -1,32 +1,29 @@
-import { Product } from '../../domain/entities/Product';
-import { ProductRepository } from '../../domain/repositories/ProductRepository';
+import { Product } from '../domain/entities/product.entity';
+import { ProductRepositoryPort } from '../domain/repositories/product.repository.port';
+import { CreateProductDto } from '../presentation/dtos/product.dto';
 
 /**
  * Product Service - Application Layer
  *
  * Contains the business logic and use cases for product management.
- * Orchestrates operations between the domain and infrastructure layers.
+ * Orchestrates operations between the domain and infrastructure layers
  */
 export class ProductService {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(private readonly productRepository: ProductRepositoryPort) {}
 
-  /**
-   * Create a new product
-   */
-  async createProduct(
-    name: string,
-    description: string,
-    price: number,
-    stock: number
-  ): Promise<Product> {
-    const product = Product.create(name, description, price, stock);
-    return await this.productRepository.create(product);
+  async createProduct(product: CreateProductDto): Promise<Product> {
+    const createdProduct = {
+      ...product,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    return await this.productRepository.create(createdProduct);
   }
 
   /**
    * Get a product by ID
    */
-  async getProductById(id: number): Promise<Product> {
+  async getProductById(id: string): Promise<Product> {
     const product = await this.productRepository.findById(id);
 
     if (!product) {
@@ -47,7 +44,7 @@ export class ProductService {
    * Update a product
    */
   async updateProduct(
-    id: number,
+    id: string,
     name?: string,
     description?: string,
     price?: number,
@@ -61,13 +58,13 @@ export class ProductService {
     if (price !== undefined) existingProduct.price = price;
     if (stock !== undefined) existingProduct.stock = stock;
 
-    return await this.productRepository.update(existingProduct);
+    return await this.productRepository.update(id, existingProduct);
   }
 
   /**
    * Delete a product
    */
-  async deleteProduct(id: number): Promise<void> {
+  async deleteProduct(id: string): Promise<void> {
     // Verify product exists before deleting
     await this.getProductById(id);
 
