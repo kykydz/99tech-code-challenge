@@ -1,10 +1,13 @@
 import 'reflect-metadata';
-import express, { Application } from 'express';
-import { ProductRoutes } from './presentation/routes/productRoutes';
-import { ProductController } from './presentation/controllers/ProductController';
-import { ProductService } from './application/services/ProductService';
-import { TypeOrmProductRepository } from './infrastructure/repositories/SqliteProductRepository';
-import { errorHandler } from './presentation/middlewares/errorHandler';
+import express = require('express');
+import { Application } from 'express';
+import { ProductRoutes } from './presentation/routes/product.routes';
+import { ProductController } from './presentation/controllers/product.controller';
+import { ProductService } from './service/product.service';
+import { errorHandler } from './presentation/middlewares/error-handler';
+import { DataSource } from 'typeorm';
+import { Product } from './domain/entities/product.entity';
+import { SQLiteTypeOrmProductRepository } from './infrastructure/sqlite-repositories/product.sqlite.repository';
 
 /**
  * App Configuration
@@ -15,8 +18,10 @@ import { errorHandler } from './presentation/middlewares/errorHandler';
 export class App {
   private app: Application;
   private port: number;
+  private dataSource: DataSource;
 
-  constructor() {
+  constructor(dataSource: DataSource) {
+    this.dataSource = dataSource;
     this.app = express();
     this.port = parseInt(process.env.PORT || '3000', 10);
 
@@ -40,19 +45,20 @@ export class App {
   }
 
   private initializeRoutes(): void {
-    // Health check endpoint
-    this.app.get('/health', (req, res) => {
-      res.json({ status: 'ok', timestamp: new Date().toISOString() });
-    });
-
     // Dependency Injection: Manual wiring of dependencies
-    // In a larger application, you might use a DI container
-    const productRepository = new TypeOrmProductRepository();
+    // In a larger application, might need to use a DI container
+    const productRepository = new SQLiteTypeOrmProductRepository(
+      this.dataSource
+    );
     const productService = new ProductService(productRepository);
     const productController = new ProductController(productService);
     const productRoutes = new ProductRoutes(productController);
 
     // Register routes
+    // Health check endpoint
+    this.app.get('/health', (req, res) => {
+      res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    });
     this.app.use('/api/products', productRoutes.getRouter());
 
     // 404 handler

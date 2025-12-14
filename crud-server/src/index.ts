@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { App } from './app';
-import { DatabaseConnection } from './infrastructure/database/DatabaseConnection';
+import { DatabaseConnection } from './infrastructure/database/database-connection';
 
 /**
  * Application Entry Point
@@ -9,10 +9,10 @@ import { DatabaseConnection } from './infrastructure/database/DatabaseConnection
 async function bootstrap() {
   try {
     // Initialize TypeORM database connection
-    await DatabaseConnection.getDataSource();
+    const dataSource = await DatabaseConnection.getDataSource();
 
     // Create and start the application
-    const app = new App();
+    const app = new App(dataSource);
     app.listen();
 
     // Graceful shutdown handlers
