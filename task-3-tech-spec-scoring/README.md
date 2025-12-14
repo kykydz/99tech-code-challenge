@@ -58,13 +58,13 @@ sequenceDiagram
 
 ## Possible Risk
 
-| Possible Threat                   | Prevention                    | Notes                       |
-| --------------------------------- | ----------------------------- | --------------------------- |
-| Forged requests                   | JWT authentication            |                             |
-| Replay attacks                    | Single-use action tokens      | - HMAC-signed action tokens |
-| - Token storage in Redis with TTL |
-| Automated abuse                   | Rate limiting per user        |                             |
-| Score tampering                   | Server-side score calculation |                             |
+| Possible Threat | Prevention                    | Notes                             |
+| --------------- | ----------------------------- | --------------------------------- |
+| Forged requests | JWT authentication            |                                   |
+| Replay attacks  | Single-use action tokens      | - HMAC-signed action tokens       |
+|                 |                               | - Token storage in Redis with TTL |
+| Automated abuse | Rate limiting per user        |                                   |
+| Score tampering | Server-side score calculation |                                   |
 
 ## Resource
 
@@ -91,7 +91,6 @@ entity: `action_tokens`
 
 | API Method               | POST                    | -                                                                                                                                                                               |
 | ------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **API Method**           | POST                    | -                                                                                                                                                                               |
 | **API Path**             | `/api/v1/scores/update` | -                                                                                                                                                                               |
 | **Request Header**       | `Authorization`         | Type: String<br>Example: `Bearer <access_token>`                                                                                                                                |
 | **Request Params**       | -                       | -                                                                                                                                                                               |
@@ -146,7 +145,6 @@ entity: `action_tokens`
 ## Suggested Improvements & Future Enhancements
 
 <aside>
-💡
 
 These are not required for initial implementation, but recommended.
 

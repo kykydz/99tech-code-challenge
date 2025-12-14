@@ -15,20 +15,21 @@ This project follows Hexagonal Architecture principles:
 
 ```
 src/
-├── domain/              # Core business logic
-│   ├── entities/        # Domain entities
-│   └── repositories/    # Repository interfaces (ports)
-├── application/         # Use cases
-│   └── services/        # Application services
-├── infrastructure/      # External adapters
-│   ├── database/        # Database configuration
-│   └── repositories/    # Repository implementations
-├── presentation/        # HTTP layer
-│   ├── controllers/     # Request handlers
-│   ├── routes/          # Route definitions
-│   ├── middlewares/     # Express middlewares
-│   └── dtos/           # Data transfer objects
-└── index.ts            # Application entry point
+├── config/                     # Configuration of the apps
+├── domain/                     # Core business logic
+│   ├── entities/               # Domain entities
+│   └── repositories/           # Repository interfaces (ports)
+├── services/                   # Use cases (business logic)
+├── infrastructure/             # External adapters
+│   ├── database/               # Database configuration
+│   └── sqlite-repositories/    # Repository implementations
+├── presentation/               # HTTP layer
+│   ├── controllers/            # Request handlers
+│   ├── routes/                 # Route definitions
+│   ├── middlewares/            # Express middlewares
+│   └── dtos/                   # Data transfer objects
+└── index.ts                    # Application entry point
+└── app.ts                      # Express app setup & DI container
 ```
 
 ## API Endpoints
@@ -115,10 +116,3 @@ The server will start on `http://localhost:3000`
 npm run build
 npm start
 ```
-
-## Key Benefits of This Architecture
-
-1. **Testability**: Business logic is independent of frameworks and databases
-2. **Flexibility**: Easy to swap implementations (e.g., SQLite → PostgreSQL)
-3. **Maintainability**: Clear separation of concerns
-4. **Scalability**: Easy to add new features without affecting existing code
