@@ -76,11 +76,9 @@ export class App {
 
   public listen(): void {
     this.app.listen(this.port, () => {
-      console.log(`🚀 Server is running on http://localhost:${this.port}`);
-      console.log(`📊 Health check: http://localhost:${this.port}/health`);
-      console.log(
-        `📦 Products API: http://localhost:${this.port}/api/products`
-      );
+      console.log(`Server is running on http://localhost:${this.port}`);
+      console.log(`Health check: http://localhost:${this.port}/health`);
+      console.log(`Products API: http://localhost:${this.port}/api/products`);
     });
   }
 
