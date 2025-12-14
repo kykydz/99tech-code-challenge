@@ -15,7 +15,10 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+
+    "strict": true,
+    "esModuleInterop": true
   },
   "include": ["task-1-three-ways-to-sum/**/*.ts", "crud-server/**/*.ts"],
   "exclude": ["node_modules", "dist"]
