@@ -8,6 +8,7 @@ import { errorHandler } from './presentation/middlewares/error-handler';
 import { DataSource } from 'typeorm';
 import { Product } from './domain/entities/product.entity';
 import { SQLiteTypeOrmProductRepository } from './infrastructure/sqlite-repositories/product.sqlite.repository';
+import { APP_PORT } from './config/environment';
 
 /**
  * App Configuration
@@ -23,7 +24,7 @@ export class App {
   constructor(dataSource: DataSource) {
     this.dataSource = dataSource;
     this.app = express();
-    this.port = parseInt(process.env.PORT || '3000', 10);
+    this.port = APP_PORT;
 
     this.initializeMiddlewares();
     this.initializeRoutes();

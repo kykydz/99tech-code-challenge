@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Product } from '../../domain/entities/product.entity';
+import { DATABASE_PATH } from '../../config/environment';
 
 /**
  * Database Configuration and Initialization
@@ -17,7 +18,7 @@ export class DatabaseConnection {
    */
   static async getDataSource(): Promise<DataSource> {
     if (!DatabaseConnection.dataSource) {
-      const dbPath = process.env.DATABASE_PATH || './database.sqlite';
+      const dbPath = DATABASE_PATH;
 
       DatabaseConnection.dataSource = new DataSource({
         type: 'sqlite',
