@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "moduleResolution": "node16",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "rootDir": ".",
-    "outDir": "dist",
+    "module": "commonjs",
     "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
     "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
     "skipLibCheck": true,
-    "strict": true,
-    "types": ["node"]
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
   },
   "include": ["task-1-three-ways-to-sum/**/*.ts", "crud-server/**/*.ts"],
   "exclude": ["node_modules", "dist"]
