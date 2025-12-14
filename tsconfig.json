@@ -20,6 +20,6 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["task-1-three-ways-to-sum/**/*.ts", "crud-server/**/*.ts"],
+  "include": ["task-1-three-ways-to-sum/**/*.ts", "task-2-crud-server/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
