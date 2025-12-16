@@ -1,3 +1,4 @@
+// Linear Complexity: O(n)
 function sumToNA(n: number): number {
   let sum = 0;
   for (let i = 1; i <= n; i++) {
@@ -6,10 +7,13 @@ function sumToNA(n: number): number {
   return sum;
 }
 
+// Constant Complexity: O(1)
+// Using the formula n(n + 1) / 2
 function sumToNB(n: number): number {
   return (n * (n + 1)) / 2;
 }
 
+// Linear Complexity: O(n)
 function sumToNC(n: number): number {
   if (n === 1) {
     return 1;
